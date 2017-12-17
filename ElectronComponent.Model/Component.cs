@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace ElectronComponent
 {
-    public class Class1
+    public class Component
     {
+        public Guid id { get; set; }
+        public string name { get; set; }
+        public  Guid type;
+        public User Owner;
+
     }
 }

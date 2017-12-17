@@ -1,0 +1,40 @@
+﻿<Window x:Class="ElectronComponent.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElectronComponent.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="317" Width="789" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230*"/>
+            <ColumnDefinition Width="551*"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="dataGType" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="30,30,41,51" SelectionMode="Single" SelectionChanged="dataGType_SelectionChanged">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить" Click="btnAddType_Click"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Тип" Width="40*" Binding="{Binding name}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Viewbox Grid.Column="1">
+            <DataGrid x:Name="dataGcomponent" Height="160" Width="308">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить" Click="btnAddComponent_Click"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Path=name}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Viewbox>
+
+    </Grid>
+</Window>
