@@ -5,17 +5,90 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectronComponent.Wpf"
         mc:Ignorable="d"
-        Title="ShowComponentWindow" Height="300" Width="300">
+        Title="Просмотр компонента" Height="592" Width="529">
     <Grid ShowGridLines="True">
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90*"/>
-            <RowDefinition Height="90*"/>
-            <RowDefinition Height="89*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="74*"/>
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="170*"/>
+            <RowDefinition Height="192*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="21*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="174*"/>
+            <ColumnDefinition Width="101*"/>
+            <ColumnDefinition Width="246*"/>
         </Grid.ColumnDefinitions>
+        <Viewbox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+            <ComboBox x:Name="CombBType"   DisplayMemberPath = "name" SelectedValuePath = "id" SelectedItem = "{Binding ComponentType, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Width="145" Height="29">
+                <!--<ComboBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding name}"/>
+                </StackPanel>
+            </DataTemplate>
+            </ComboBox.ItemTemplate>-->
+            </ComboBox>
+        </Viewbox>
+        <Viewbox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2">
+            <TextBox x:Name="txtBName" TextWrapping="Wrap" Height="95" Width="192" FontSize="14"/>
+        </Viewbox>
+        <Viewbox HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="54" Margin="0,58" Width="174">
+            <Label Content="Краткое описание:" RenderTransformOrigin="-0.526,0.192" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="14"/>
+        </Viewbox>
+        <Viewbox Grid.Row="1">
+            <Label Content="Тип" Foreground="#FFFDEEEE" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </Viewbox>
+        <Viewbox Grid.Row="5" Grid.Column="2" Margin="200,0,0,0">
+            <Button x:Name="btnOk" Content="OK" FontWeight="Bold" Foreground="Red" BorderBrush="#FFFD2A2A" Click="btnOk_Click" Height="30" Width="39">
+                <Button.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#FFF9F9F9"/>
+                        <GradientStop Color="#FF989898" Offset="0.538"/>
+                        <GradientStop Color="#FFA5FFA5" Offset="0.096"/>
+                    </RadialGradientBrush>
+                </Button.Background>
+                <Button.Template>
+                    <ControlTemplate  TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="DarkOrange"></Ellipse>
+                            <Label Content="{TemplateBinding Content}" HorizontalAlignment="Center"
+                               VerticalAlignment="Center"></Label>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Viewbox>
+        <Viewbox Grid.Column="2" HorizontalAlignment="Left" Height="35" Margin="45,0,0,0" Grid.Row="5" VerticalAlignment="Top" Width="50">
+            <Viewbox.OpacityMask>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Viewbox.OpacityMask>
+            <Button x:Name="btnPrint"  FontWeight="Bold" Foreground="Red" Click="btnPrint_Click" Height="30" Width="39" BorderBrush="{x:Null}" Background="Black">
+                <Button.Template>
+                    <ControlTemplate  TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="#FF92D124"/>
+                            <Label Content="{TemplateBinding Content}" HorizontalAlignment="Stretch" 
+                               VerticalAlignment="Stretch" Height="Auto" Width="19" Margin="10,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                <Label.Background>
+                                    <ImageBrush ImageSource="Resource/print.png" Stretch="Uniform"/>
+                                </Label.Background>
+                            </Label>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Viewbox>
+
 
     </Grid>
 </Window>

@@ -22,5 +22,13 @@ namespace ElectronComponent.API.Controllers
         {
             return componentTypeRepository.GreateComponentType(component) ;
         }
+
+        [HttpGet]
+        [Route("api/componenttype/{id}")]
+        public ComponentType CreatComponents(Guid id)
+        {
+            return componentTypeRepository.GetComponentType(id);
+        }
+
     }
 }

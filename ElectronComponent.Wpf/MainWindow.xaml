@@ -5,33 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectronComponent.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="317" Width="789" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        Title="Компоненты" Height="407" Width="934" WindowStartupLocation="CenterOwner" Foreground="#FFC33535">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="230*"/>
-            <ColumnDefinition Width="551*"/>
+            <ColumnDefinition Width="553*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="dataGType" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="30,30,41,51" SelectionMode="Single" SelectionChanged="dataGType_SelectionChanged">
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Добавить" Click="btnAddType_Click"></MenuItem>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Тип" Width="40*" Binding="{Binding name}" />
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <Viewbox Grid.Column="1">
-            <DataGrid x:Name="dataGcomponent" Height="160" Width="308">
+        <Viewbox Grid.Column="1" Stretch="Fill">
+            <Viewbox.OpacityMask>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FFB26C6C" Offset="1"/>
+                </RadialGradientBrush>
+            </Viewbox.OpacityMask>
+            <DataGrid x:Name="dataGcomponent" Height="207" Width="366" ColumnWidth="*"  SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="#FFA1CFFB" Foreground="#FF080707" OpacityMask="#FFB41E1E" CanUserResizeColumns="False" HeadersVisibility="Column" FontWeight="Bold">
+                <DataGrid.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD8E8D2"/>
+                        <GradientStop Color="#FFCFCCCC" Offset="0.954"/>
+                    </RadialGradientBrush>
+                </DataGrid.Background>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Добавить" Click="btnAddComponent_Click"></MenuItem>
+                        <MenuItem Header="Удалить" Click="btnDellComponent_Click"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <EventSetter Event="MouseDoubleClick" Handler="RowDoubleClick"/>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Path=name}" IsReadOnly="True" Foreground="Black" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Viewbox>
+        <Viewbox Stretch="Fill">
+            <DataGrid x:Name="dataGType" AutoGenerateColumns="False" ColumnWidth="*" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionMode="Single" SelectionChanged="dataGType_SelectionChanged" Height="207" Width="167" FontWeight="Bold" CanUserResizeColumns="False" HeadersVisibility="Column">
+                <DataGrid.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF7E3B3B" Offset="1"/>
+                    </LinearGradientBrush>
+                </DataGrid.Foreground>
+                <DataGrid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="White" Offset="0.046"/>
+                        <GradientStop Color="#FEB6B6B6" Offset="0.931"/>
+                    </LinearGradientBrush>
+                </DataGrid.Background>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить" Click="btnAddType_Click"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Path=name}" />
+                    <DataGridTextColumn Header="Тип" Binding="{Binding name}" IsReadOnly="True">
+                        <DataGridTextColumn.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="Black" Offset="1"/>
+                            </LinearGradientBrush>
+                        </DataGridTextColumn.Foreground>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Viewbox>

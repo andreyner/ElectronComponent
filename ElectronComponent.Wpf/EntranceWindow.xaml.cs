@@ -21,7 +21,7 @@ namespace ElectronComponent.Wpf
     {
         public EntranceWindow()
         {
-            this.serviceClient = new ServiceClient("http://localhost:63231/api/");
+            this.serviceClient = new ServiceClient("http://localhost:61100/api/");
             InitializeComponent(); 
         }
         private ServiceClient serviceClient;
@@ -29,6 +29,7 @@ namespace ElectronComponent.Wpf
         {
             try
             {
+        
                 if (txtBlogin.Text.Trim() != "" && txtBpassword.Text.Trim() != "")
                 {
                     User user=null;
@@ -45,7 +46,7 @@ namespace ElectronComponent.Wpf
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 MessageBox.Show("Ошибка при входе в приложение!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }

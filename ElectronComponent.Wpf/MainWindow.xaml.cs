@@ -36,11 +36,14 @@ namespace ElectronComponent.Wpf
             newTypeComponentWindow.ShowDialog();
             DGtypeupdate();
         }
+
         private void btnAddComponent_Click(object sender, RoutedEventArgs e)
         {
             CreateComponentWindow createComponentWindow = new CreateComponentWindow(serviceClient,user);
             createComponentWindow.ShowDialog();
+            DGtypeupdate();
         }
+
         private void DGtypeupdate()
         {
             try
@@ -51,15 +54,45 @@ namespace ElectronComponent.Wpf
             catch
             { }
         }
+
         private void DGComponentupdate()
         {
-
+            try
+            {
+                ComponentType componentType = dataGType.SelectedItems.OfType<ComponentType>().Single();
+                dataGcomponent.ItemsSource = componentType.components;
+            }
+            catch { }
         }
 
         private void dataGType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComponentType componentType=dataGType.SelectedItems.OfType<ComponentType>().Single();
-            dataGcomponent.ItemsSource = componentType.components;
+            DGComponentupdate();
+        }
+
+        private void btnDellComponent_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Component component = dataGcomponent.SelectedItems.OfType<Component>().Single();
+                serviceClient.DelleteComponent(component.id);
+                DGtypeupdate();
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при удалении компонента!","Ошибка",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
+        }
+
+        private void RowDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Component component = dataGcomponent.SelectedItems.OfType<Component>().Single();
+            ShowComponentWindow showComponentWindow = new ShowComponentWindow(serviceClient,user, component);
+            showComponentWindow.ShowDialog();
+            DGtypeupdate();
+            
+
+
         }
     }
 }

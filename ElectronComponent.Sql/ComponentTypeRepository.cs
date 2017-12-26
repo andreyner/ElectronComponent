@@ -35,7 +35,6 @@ namespace ElectronComponent.Sql
                 }
             }
         }
-
         public ComponentType UpdateComponentType(ComponentType componentType)
         {
             throw new NotImplementedException();
@@ -44,7 +43,6 @@ namespace ElectronComponent.Sql
         {
             throw new NotImplementedException();
         }
-
         public IEnumerable<Component> GetComponentsofType(Guid typeid)
         {
             using (var sqlConnection = new SqlConnection(_connectionString))
@@ -73,7 +71,33 @@ namespace ElectronComponent.Sql
                 }
             }
         }
+        public ComponentType GetComponentType(Guid typeid)
+        {
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+                using (var command = sqlConnection.CreateCommand())
+                {
+                    command.CommandText = "Select * from TypeComponent where id= @typeid";
+                    command.Parameters.AddWithValue("@typeid", typeid);
 
-      
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            return new ComponentType
+                            {
+                                id = reader.GetGuid(reader.GetOrdinal("id")),
+                                name = reader.GetString(reader.GetOrdinal("name"))
+
+                            };
+                        }
+
+                    }
+                }
+            }
+            throw new ArgumentException($"Компонет с id {typeid} не найден!");
+        }
     }
 }

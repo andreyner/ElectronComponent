@@ -12,5 +12,6 @@ namespace ElectronComponent.ISql
         ComponentType UpdateComponentType(ComponentType componentType);
         IEnumerable<Component> GetComponentsofType(Guid typeid);
         void  DellComponentType(Guid componentTypeid);
+        ComponentType GetComponentType(Guid typeid);
     }
 }

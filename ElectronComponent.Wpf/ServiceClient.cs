@@ -73,7 +73,6 @@ namespace ElectronComponent.Wpf
                 default: throw new Exception("Не удалось получить типы компонентов!");
             }
         }
-
         public Component CreateComponent(Component component)
         {
             var resnote = _client.PostAsJsonAsync("component", component).Result;
@@ -85,8 +84,44 @@ namespace ElectronComponent.Wpf
 
 
         }
+        public void DelleteComponent(Guid componentid)
+        {
+            var res = _client.DeleteAsync($"component/{componentid}").Result;
+            switch (res.StatusCode)
+            {
+                case HttpStatusCode.OK: return;
+                case HttpStatusCode.NoContent: return;
+                default: throw new Exception("Не удалось удалить компонет!");
+            }
+        }
+        public Component UpdateComponent(Component сomponent)
+        {
+            var resnote = _client.PutAsJsonAsync("component", сomponent).Result;
+            switch (resnote.StatusCode)
+            {
+                case HttpStatusCode.OK: return resnote.Content.ReadAsAsync<Component>().Result;
+                default: throw new Exception("Не удалось обновить компонент!");
+            }
 
-
+        }
+        public Component GetComponent(Guid id)
+        {
+            var component = _client.GetAsync($"component/{id}").Result;
+            switch (component.StatusCode)
+            {
+                case HttpStatusCode.OK: return component.Content.ReadAsAsync<Component>().Result;
+                default: throw new Exception("Не удалось обновить компонент!");
+            }
+        }
+        public ComponentType GetComponentType(Guid id)
+        {
+            var component = _client.GetAsync($"componenttype/{id}").Result;
+            switch (component.StatusCode)
+            {
+                case HttpStatusCode.OK: return component.Content.ReadAsAsync< ComponentType>().Result;
+                default: throw new Exception("Не удалось получить тип компонента!");
+            }
+        }
 
     }
 }

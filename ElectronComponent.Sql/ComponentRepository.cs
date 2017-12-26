@@ -41,7 +41,16 @@ namespace ElectronComponent.Sql
 
         public void DellComponent(Guid id)
         {
-            throw new NotImplementedException();
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+                using (var command = sqlConnection.CreateCommand())
+                {
+                    command.CommandText = "delete from Component where id = @id";
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public Component GetComponent(Guid id)
@@ -76,7 +85,25 @@ namespace ElectronComponent.Sql
 
         public Component UpdateComponent(Component component)
         {
-            throw new NotImplementedException();
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+                using (var command = sqlConnection.CreateCommand())
+                {
+                    command.CommandText = "Update Component Set" +
+                        " name=@name," +
+                        " type_id=@type_id " +
+                        " Where id=@id ";
+                    command.Parameters.AddWithValue("@name", component.name);
+                    command.Parameters.AddWithValue("@type_id", component.type);
+                    command.Parameters.AddWithValue("@id", component.id);
+                    command.ExecuteNonQuery();
+                    return component;
+                }
+            }
         }
+
+   
+
     }
 }

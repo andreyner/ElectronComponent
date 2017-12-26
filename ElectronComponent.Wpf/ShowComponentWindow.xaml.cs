@@ -19,9 +19,65 @@ namespace ElectronComponent.Wpf
     /// </summary>
     public partial class ShowComponentWindow : Window
     {
-        public ShowComponentWindow()
+        public ShowComponentWindow(ServiceClient serviceClient,User user,Component component)
         {
+            this.serviceClient = serviceClient;
+            this.user = user;
+            this.component = component;
+            
             InitializeComponent();
+            try
+            {
+                UpdateComponent();
+                CombBType.ItemsSource = serviceClient.GetTypeComponentsofUser(user.id);
+                CombBType.SelectedValue = serviceClient.GetComponentType(component.type).id;
+               // CombBType.SelectedItem =CombBType.ItemsSource.Cast<ComponentType>().Where(c => c.id == serviceClient.GetComponentType(component.type).id).Single();
+              //  CombBType.SelectedItem = serviceClient.GetComponentType(component.type);
+
+
+
+            }
+            catch { }
+
+        }
+        private void UpdateComponent()
+        {
+            try
+            {
+                component = serviceClient.GetComponent(component.id);
+                txtBName.Text = component.name;
+               
+            }
+            catch
+            {
+                
+            }
+        }
+        private ServiceClient serviceClient;
+        private User user;
+        private Component component;
+        private void btnOk_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                serviceClient.UpdateComponent(
+                    new Component()
+                    {
+                        id = component.id,
+                        name =txtBName.Text.TrimEnd(),
+                        type= ((ComponentType)CombBType.SelectedItem).id
+                    }
+                    );
+            }
+            catch
+            {
+                MessageBox.Show("Не удалось сохранить изменения!","Ошибка",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
+        }
+
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
